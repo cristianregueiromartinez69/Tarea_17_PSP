@@ -2,7 +2,8 @@ public class Main {
     public static void main(String[] args) {
 
         Parking parking = new Parking();
-        Thread hilo = new Thread(new Hilo(parking));
+        Coches coches = new Coches();
+        Thread hilo = new Thread(new Hilo(parking, 0, coches.getCochesExistentes()));
 
         hilo.start();
 
