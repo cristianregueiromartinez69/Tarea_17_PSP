@@ -1,34 +1,25 @@
+import java.util.Random;
+
 public class Hilo implements Runnable {
+    private final Parking parking;
+    private final int idCoche;
 
-    private Parking parking;
-    private int numHilos;
-    private int maxHilos;
-
-
-
-    public Hilo(Parking parking, int numHilos, int maxHilos) {
+    public Hilo(Parking parking, int idCoche) {
         this.parking = parking;
-        this.numHilos = numHilos;
-        this.maxHilos = maxHilos;
+        this.idCoche = idCoche;
     }
 
     @Override
     public void run() {
-
-        if(numHilos < maxHilos) {
-            Thread hiloHijo = new Thread(new Hilo(parking,numHilos + 1, maxHilos));
-            hiloHijo.start();
-        }
-
-        try{
-            for(int i = 0; i < 20; i++){
-                parking.logicaAparcar();
-                parking.logicaSalir();
+        while (true) {
+            try {
+                parking.logicaAparcar(idCoche);
+                Thread.sleep(new Random().nextInt(1000) + 3000);
+                parking.logicaSalir(idCoche);
+                Thread.sleep(new Random().nextInt(1000) + 3000);
+            } catch (InterruptedException e) {
+                System.out.println("Coche " + idCoche + " ha sido interrumpido.");
             }
-
-        } catch (InterruptedException e) {
-            System.out.println("Ups, ha habido un error a la hora de ejecucion de hilos");
         }
-
     }
 }

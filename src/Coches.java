@@ -1,8 +1,6 @@
 public class Coches {
 
-    private int cochesExistentes = 10;
-
-    public int getCochesExistentes() {
-        return cochesExistentes;
+    public int getNumCoches() {
+        return 10;
     }
 }

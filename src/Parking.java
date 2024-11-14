@@ -1,61 +1,66 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+/**
+ * Clase parking para la logica del aparcamiento
+ * @author cristian
+ * @version 1.0
+ */
 public class Parking {
+    //variables de clase
+    private final int maxPlazas;
+    private final List<Integer> plazas;
 
-    Plazas plazas = new Plazas();
-    private int numeroCoche = 0;
-
-    private Random random = new Random();
-
-
-
-
-
-    public Parking(Plazas plazas) {
-        this.plazas = plazas;
+    /**
+     * Constructor de la clase
+     * @param maxPlazas el maximo de plazas
+     */
+    public Parking(int maxPlazas) {
+        this.maxPlazas = maxPlazas;
+        this.plazas = new ArrayList<>();
     }
 
-    public Parking() {
-
-    }
-
-    public synchronized void logicaAparcar() throws InterruptedException {
-        if(plazas.getNumPlazasOcupadas() == plazas.getMaxPlazas()){
+    /**
+     * metodo para la logica de aparcar el coche
+     * @param idCoche el id del coche
+     * @throws InterruptedException lanzamos una excepcion
+     */
+    public synchronized void logicaAparcar(int idCoche) throws InterruptedException {
+        /*
+          Explicacion:
+          1. mientras el tamaño de la lista sea mayor o igual que el maximo de plazas, espera
+          2. añadimos un coche a la plaza, imprimimos el resultado
+          3. notificamos
+         */
+        while (plazas.size() >= maxPlazas) {
             wait();
         }
-        else{
-            plazas.aumentarPlazas();
-            numeroCoche++;
-            System.out.println("Entrada: " + "Coche " + numeroCoche + " aparca en " + " plaza numero: " + plazas.getNumPlazasOcupadas());
-            System.out.println("Plazas libres: " + plazas.getCalculoPlazasLibres());
-            System.out.println("Parking: " + plazas.getNumPlazasOcupadas() + "/" + plazas.getMaxPlazas());
-            Thread.sleep(random.nextInt(1000)+3000);
-        }
+        plazas.add(idCoche);
+        System.out.println("ENTRADA: Coche " + idCoche + " aparca.");
+        System.out.println("Plazas libres: " + (maxPlazas - plazas.size()));
         notifyAll();
     }
 
-
-    public synchronized void logicaSalir() throws InterruptedException {
-        if(plazas.getNumPlazasOcupadas() == 0){
+    /**
+     * metodo para manejar la logica de salir del aparcamiento
+     * @param idCoche el id del coche
+     * @throws InterruptedException lanzamos la excepcion
+     */
+    public synchronized void logicaSalir(int idCoche) throws InterruptedException {
+        /*
+          Explicacion:
+          1. mientras la plaza no contenga el id del coche, esperamos
+          2. si no es así, borramos el coche de la lista
+          3. imprimimos y notificamos
+         */
+        while (!plazas.contains(idCoche)) {
             wait();
         }
-        else{
-            plazas.disminuirNumPlazas();
-            numeroCoche--;
-            System.out.println("Salida: " + "Coche " + numeroCoche + " sale de " + " plaza numero: " + plazas.getNumPlazasOcupadas());
-            System.out.println("Plazas libres: " + plazas.getCalculoPlazasLibres());
-            System.out.println("Parking: " + plazas.getNumPlazasOcupadas() + "/" + plazas.getMaxPlazas());
-            Thread.sleep(random.nextInt(1000)+3000);
-        }
+        plazas.remove(Integer.valueOf(idCoche));
+        System.out.println("SALIDA: Coche " + idCoche + " sale.");
+        System.out.println("Plazas libres: " + (maxPlazas - plazas.size()));
         notifyAll();
     }
-
-
-
-
-
 
 
 }
