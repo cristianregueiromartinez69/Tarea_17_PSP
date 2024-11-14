@@ -1,10 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Parking {
 
     Plazas plazas = new Plazas();
     private int numeroCoche = 0;
+
+    private Random random = new Random();
+
 
 
 
@@ -27,7 +31,7 @@ public class Parking {
             System.out.println("Entrada: " + "Coche " + numeroCoche + " aparca en " + " plaza numero: " + plazas.getNumPlazasOcupadas());
             System.out.println("Plazas libres: " + plazas.getCalculoPlazasLibres());
             System.out.println("Parking: " + plazas.getNumPlazasOcupadas() + "/" + plazas.getMaxPlazas());
-            Thread.sleep(2000);
+            Thread.sleep(random.nextInt(1000)+3000);
         }
         notifyAll();
     }
@@ -43,7 +47,7 @@ public class Parking {
             System.out.println("Salida: " + "Coche " + numeroCoche + " sale de " + " plaza numero: " + plazas.getNumPlazasOcupadas());
             System.out.println("Plazas libres: " + plazas.getCalculoPlazasLibres());
             System.out.println("Parking: " + plazas.getNumPlazasOcupadas() + "/" + plazas.getMaxPlazas());
-            Thread.sleep(2000);
+            Thread.sleep(random.nextInt(1000)+3000);
         }
         notifyAll();
     }
