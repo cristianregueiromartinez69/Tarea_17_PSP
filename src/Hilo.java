@@ -10,7 +10,7 @@ public class Hilo implements Runnable {
     @Override
     public void run() {
         try{
-            while(true){
+            for(int i = 0; i < 20; i++){
                 parking.logicaAparcar();
                 parking.logicaSalir();
             }

@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Parking {
 
-    private Plazas plazas;
+    Plazas plazas = new Plazas();
     private int numeroCoche = 0;
 
 
@@ -27,6 +27,7 @@ public class Parking {
             System.out.println("Entrada: " + "Coche " + numeroCoche + " aparca en " + " plaza numero: " + plazas.getNumPlazasOcupadas());
             System.out.println("Plazas libres: " + plazas.getCalculoPlazasLibres());
             System.out.println("Parking: " + plazas.getNumPlazasOcupadas() + "/" + plazas.getMaxPlazas());
+            Thread.sleep(2000);
         }
         notifyAll();
     }
@@ -42,6 +43,7 @@ public class Parking {
             System.out.println("Salida: " + "Coche " + numeroCoche + " sale de " + " plaza numero: " + plazas.getNumPlazasOcupadas());
             System.out.println("Plazas libres: " + plazas.getCalculoPlazasLibres());
             System.out.println("Parking: " + plazas.getNumPlazasOcupadas() + "/" + plazas.getMaxPlazas());
+            Thread.sleep(2000);
         }
         notifyAll();
     }

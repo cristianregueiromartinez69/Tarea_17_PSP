@@ -4,6 +4,10 @@ public class Plazas {
     private int minPlazas  = 0;
     private int maxPlazas = 20;
 
+    public Plazas() {
+
+    }
+
     public synchronized void aumentarPlazas() {
         numPlazasOcupadas++;
     }
