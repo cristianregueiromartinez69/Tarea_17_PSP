@@ -38,6 +38,7 @@ public class Parking {
         plazas.add(idCoche);
         System.out.println("ENTRADA: Coche " + idCoche + " aparca.");
         System.out.println("Plazas libres: " + (maxPlazas - plazas.size()));
+        System.out.println(getInformationPlazas(plazas));
         notifyAll();
     }
 
@@ -59,7 +60,12 @@ public class Parking {
         plazas.remove(Integer.valueOf(idCoche));
         System.out.println("SALIDA: Coche " + idCoche + " sale.");
         System.out.println("Plazas libres: " + (maxPlazas - plazas.size()));
+        System.out.println(getInformationPlazas(plazas));
         notifyAll();
+    }
+
+    public String getInformationPlazas(List<Integer> numPlazas){
+        return "Parking: " + numPlazas.size() + "/20";
     }
 
 
