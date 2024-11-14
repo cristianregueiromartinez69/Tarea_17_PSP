@@ -21,4 +21,10 @@ public class Plazas {
     public synchronized int getMaxPlazas() {
         return maxPlazas;
     }
+
+    public synchronized int getCalculoPlazasLibres() {
+        return maxPlazas - numPlazasOcupadas;
+    }
+
+
 }
